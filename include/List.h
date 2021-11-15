@@ -34,8 +34,6 @@ public:
         , m_allocator(allocator)
     {}
 
-    ~List() noexcept;
-
     /**
      * @brief Inserts a new value
      *

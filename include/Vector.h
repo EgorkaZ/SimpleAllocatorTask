@@ -11,8 +11,6 @@ public:
         : m_allocator(allocator)
     {}
 
-    ~Vector() noexcept;
-
     void push_back(short val);
 
     /**

@@ -16,14 +16,6 @@ size_t into_pow_of_2(size_t val)
 
 } // namespace anonymous
 
-Vector::~Vector() noexcept
-{
-    m_allocator->free(m_data);
-    m_data = nullptr;
-    m_size = 0;
-    m_capacity = 0;
-}
-
 void Vector::push_back(short val)
 {
     if (m_size == m_capacity) {
@@ -49,7 +41,7 @@ void Vector::reserve(size_t new_size)
         return;
     }
 
-    auto * new_data = m_allocator->alloc_short_arr(new_capacity); // TODO: replace with realloc_short_arr
+    auto * new_data = m_allocator->realloc_short_arr(new_capacity, m_data);
     if (new_data == m_data) {
         m_capacity = new_capacity;
         return;
@@ -57,7 +49,6 @@ void Vector::reserve(size_t new_size)
     for (auto src = m_data, end = src + m_size, dst = new_data; src != end; ++src, ++dst) {
         *dst = *src;
     }
-    m_allocator->free(m_data);
     m_data = new_data;
     m_capacity = new_capacity;
 }
