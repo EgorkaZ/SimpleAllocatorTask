@@ -1,6 +1,11 @@
 #include "List.h"
 #include "StackAllocator.h"
 
+List::~List() noexcept
+{
+    for (auto node = begin(); node != end(); node = erase(node));
+}
+
 Node * List::insert(int val)
 {
     auto * new_node = m_allocator->alloc_node();
@@ -15,12 +20,13 @@ Node * List::insert(int val)
     return new_node;
 }
 
-Node * List::erase(Node * node)
+Node * List::erase(Node * node) noexcept
 {
     auto * next = node->next();
 
     node->prev()->m_next = next;
     next->m_prev = node->prev();
 
+    m_allocator->free(node);
     return next;
 }
