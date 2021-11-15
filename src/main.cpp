@@ -12,10 +12,28 @@ int main()
     vec.push_back(17);
     vec.push_back(4);
     vec.push_back(2);
-    vec.push_back(42);
+
+    List list(&allocator);
+    list.insert(42);
+    list.insert(3);
+    list.insert(5);
+    list.insert(15);
+
+    vec.push_back(13);
+
+    std::cout << "vec:\n";
     for (auto val : vec) {
-        std::cout << val << '\n';
+        std::cout << val << ' ';
     }
+    std::cout << '\n';
+
+    list.erase(list.end()->prev()->prev()); // erases 5
+
+    std::cout << "list:\n";
+    for (auto node = list.begin(); node != list.end(); node = node->next()) {
+        std::cout << node->value() << ' ';
+    }
+    std::cout << '\n';
 
     return 0;
 }

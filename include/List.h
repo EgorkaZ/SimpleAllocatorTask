@@ -18,6 +18,7 @@ public:
 
     const Node * next() const noexcept { return m_next; }
     const Node * prev() const noexcept { return m_prev; }
+    int value() const noexcept { return m_value; }
 
 private:
     Node * m_prev = nullptr;
