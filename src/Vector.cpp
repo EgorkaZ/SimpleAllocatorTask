@@ -1,3 +1,4 @@
+#include "Fwd.h"
 #include "StackAllocator.h"
 #include "Vector.h"
 
@@ -15,6 +16,14 @@ size_t into_pow_of_2(size_t val)
 }
 
 } // namespace anonymous
+
+Vector::~Vector() noexcept
+{
+    m_allocator->free(m_data);
+    m_data = nullptr;
+    m_size = 0;
+    m_capacity = 0;
+}
 
 void Vector::push_back(short val)
 {
@@ -49,6 +58,7 @@ void Vector::reserve(size_t new_size)
     for (auto src = m_data, end = src + m_size, dst = new_data; src != end; ++src, ++dst) {
         *dst = *src;
     }
+    // m_allocator->free(m_data);
     m_data = new_data;
     m_capacity = new_capacity;
 }

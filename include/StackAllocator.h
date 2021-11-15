@@ -20,8 +20,11 @@ public:
     void free(void * ptr) noexcept;
 
 private:
+    void alloc_at(std::byte * ptr, size_t to_alloc);
+
     size_t alloced_at(void * ptr) const noexcept;
-    std::byte * find_size(size_t req_size) noexcept;
+    std::byte * find_size(size_t req_size) noexcept { return find_size_from(req_size, m_buffer); }
+    std::byte * find_size_from(size_t req_size, const std::byte * from) noexcept;
 private:
     std::byte m_buffer[Size] = { std::byte{0} };
     bool m_used[Size] = { false };

@@ -34,6 +34,8 @@ public:
         , m_allocator(allocator)
     {}
 
+    ~List() noexcept;
+
     /**
      * @brief Inserts a new value
      *
@@ -48,7 +50,7 @@ public:
      * @param node to delete
      * @return next() of the deleted node
      */
-    Node * erase(Node * node);
+    Node * erase(Node * node) noexcept;
 
     bool empty() const noexcept { return m_node.m_next == m_node.m_prev; }
 
